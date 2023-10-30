@@ -1,40 +1,41 @@
-.book-list ul {
-  padding: 0;
-  margin: 20px -20px;
-  list-style: none;
-}
+.book-list {
+  ul {
+    padding: 0;
+    margin: 20px -20px;
+    list-style: none;
+  }
 
-.book-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: auto;
-  padding: 10px 20px;
-  border-bottom: 1px solid #ccc;
-  background-color: #fff;
-  list-style-type: none;
-}
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    list-style-type: none;
 
-.book-list li:nth-child(even) {
-  background-color: #f2f2f2;
-}
+    &:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    &:hover {
+      background-color: #dbe4f8;
+    }
 
-.book-list li:hover {
-  background-color: #dbe4f8;
-}
+    button {
+      background-color: #fff;
+      color: red;
+      border: 1px solid red;
+      padding: 8px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
 
-.book-list button {
-  background-color: #fff;
-  color: red;
-  border: 1px solid red;
-  padding: 8px 12px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.book-list button:hover {
-  background-color: #fdd;
+      &:hover {
+        background-color: #fdd;
+      }
+    }
+  }
 }
 
 .book-list .highlight {
