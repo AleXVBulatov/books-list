@@ -36,27 +36,27 @@
       }
     }
   }
-}
 
-.book-list .highlight {
-  background-color: #ff0;
-}
+  .highlight {
+    background-color: #ff0;
+  }
 
-.book-list .book-info {
-  flex: 1;
-  text-align: left;
-}
+  .book-info {
+    flex: 1;
+    text-align: left;
+  }
 
-.book-list .book-actions {
-  display: flex;
-  align-items: center;
-}
+  .book-actions {
+    display: flex;
+    align-items: center;
+  }
 
-.book-list .star-icon {
-  width: 24px;
-  height: 24px;
-  margin: 0 20px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  color: #fca510;
+  .star-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: #fca510;
+  }
 }
