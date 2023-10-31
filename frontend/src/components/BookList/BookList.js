@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { BsBookmarkStarFill, BsBookmarkStar } from "react-icons/bs";
 
 import { deleteBook, toggleFavourite } from "../../redux/books/actionCreators.js";
-import { selectTitleFilter } from "../../redux/slices/filterSlice.js";
+import { selectTitleFilter, selectAuthorFilter } from "../../redux/slices/filterSlice.js";
 
 import "./BookList.scss";
 
@@ -12,6 +12,7 @@ const BookList = () => {
   const books = useSelector((state) => state.books);
 
   const titleFilter = useSelector(selectTitleFilter);
+  const authorFilter = useSelector(selectAuthorFilter);
 
   const handleToggleFavourite = (id) => {
     dispatch(toggleFavourite(id));
@@ -22,7 +23,9 @@ const BookList = () => {
   };
 
   const filteredBooks = books.filter((book) => {
-    return book.title.toLowerCase().includes(titleFilter.toLowerCase());
+    const matchTitle = book.title.toLowerCase().includes(titleFilter.toLowerCase());
+    const matchAuthor = book.author.toLowerCase().includes(authorFilter.toLowerCase());
+    return matchTitle && matchAuthor;
   });
 
   return (
