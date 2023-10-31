@@ -15,7 +15,7 @@ const BookForm = () => {
   const dispatch = useDispatch();
 
   const handleAddRandomBook = () => {
-    const randomIndex = Math.floor(Math.random() * 3);
+    const randomIndex = Math.floor(Math.random() * booksData.length);
     const randomBook = booksData[randomIndex];
 
     const randomBookWithId = createBookWithId(randomBook);
