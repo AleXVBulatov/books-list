@@ -2,9 +2,9 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 import { addBook } from "../../redux/books/actionCreators.js";
+import createBookWithId from "../../utils/createBookWithId.js";
 import booksData from "../../data/books.json";
 
 import "./BookForm.scss";
@@ -18,11 +18,7 @@ const BookForm = () => {
     const randomIndex = Math.floor(Math.random() * 3);
     const randomBook = booksData[randomIndex];
 
-    const randomBookWithId = {
-      ...randomBook,
-      id: uuidv4(),
-      isFavourite: false,
-    };
+    const randomBookWithId = createBookWithId(randomBook);
 
     dispatch(addBook(randomBookWithId));
   };
@@ -31,15 +27,9 @@ const BookForm = () => {
     event.preventDefault();
 
     if (title && author) {
-      // данные отправить в STORE:
-      const book = {
-        title: title,
-        author: author,
-        id: uuidv4(),
-        isFavourite: false,
-      };
+      const book = createBookWithId({ title: title, author: author });
 
-      // dispatch({ type: "ADD_BOOK", payload: {...book, id: uuidv4()} });
+      // dispatch({ type: "ADD_BOOK", payload: book });
       dispatch(addBook(book));
 
       setTitle(""); // очистка инпута
