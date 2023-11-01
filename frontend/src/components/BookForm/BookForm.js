@@ -1,7 +1,7 @@
-// Использование хука useDispatch:
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 import { addBook } from "../../redux/slices/booksSlice.js";
 import createBookWithId from "../../utils/createBookWithId.js";
@@ -29,16 +29,27 @@ const BookForm = () => {
     if (title && author) {
       const book = createBookWithId({ title: title, author: author });
 
-      // dispatch({ type: "ADD_BOOK", payload: book });
       dispatch(addBook(book));
 
-      setTitle(""); // очистка инпута
-      setAuthor(""); // очистка инпута
+      setTitle("");
+      setAuthor("");
     }
   };
 
   const handleChange = (event) => {
     setTitle(event.target.value);
+  };
+
+  const handleAddRandomBookViaAPI = async () => {
+    try {
+      const res = await axios.get("http://localhost:4000/random-book");
+
+      if (!res.data && !res.data.title && !res.data.author) return;
+
+      dispatch(addBook(createBookWithId(res.data)));
+    } catch (err) {
+      console.log("Error fetching random book", err);
+    }
   };
 
   return (
@@ -58,77 +69,12 @@ const BookForm = () => {
         <button type="button" onClick={handleAddRandomBook}>
           Add Random Book
         </button>
+        <button type="button" onClick={handleAddRandomBookViaAPI}>
+          Add Random via API
+        </button>
       </form>
     </div>
   );
 };
 
 export default BookForm;
-
-// Использование mapStateToProps, mapdispatchToProps:
-// import React from "react";
-// import { useState } from "react";
-// import { connect } from "react-redux";
-// import { v4 as uuidv4 } from "uuid";
-
-// import { addBook } from "../../redux/books/actionCreators";
-
-// import "./BookForm.scss";
-
-// const BookForm = (props) => {
-//   const [title, setTitle] = useState("");
-//   const [author, setAuthor] = useState("");
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-
-//     if (title && author) {
-//       // данные отправить в STORE:
-//       const book = {
-//         title: title,
-//         author: author,
-//       };
-
-//       props.addBookToProps(addBook({ ...book, id: uuidv4() }));
-
-//       setTitle(""); // очистка инпута
-//       setAuthor(""); // очистка инпута
-//     }
-//   };
-
-//   return (
-//     <div className="app-block book-form">
-//       <h2>Add a New Book</h2>
-
-//       <form className="book-form" onSubmit={handleSubmit}>
-//         <div>
-//           <label htmlFor="title">Title: </label>
-//           <input type="text" id="title" value={title} onChange={(event) => setTitle(event.target.value)} />
-//         </div>
-//         <div>
-//           <label htmlFor="author">Author: </label>
-//           <input type="text" id="author" value={author} onChange={(event) => setAuthor(event.target.value)} />
-//         </div>
-//         <button type="submit">Add</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// const mapStateToProps = (state, ownProps) => {
-//   console.log(state);
-//   console.log(ownProps); // {}
-//   return {
-//     books: state.books,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addBookToProps: (value) => {
-//       dispatch(value);
-//     },
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(BookForm);
