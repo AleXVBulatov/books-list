@@ -18,7 +18,7 @@ const BookForm = () => {
     const randomIndex = Math.floor(Math.random() * booksData.length);
     const randomBook = booksData[randomIndex];
 
-    const randomBookWithId = createBookWithId(randomBook);
+    const randomBookWithId = createBookWithId(randomBook, "random");
 
     dispatch(addBook(randomBookWithId));
   };
@@ -27,7 +27,7 @@ const BookForm = () => {
     event.preventDefault();
 
     if (title && author) {
-      const book = createBookWithId({ title: title, author: author });
+      const book = createBookWithId({ title: title, author: author }, "manual");
 
       dispatch(addBook(book));
 
@@ -46,7 +46,7 @@ const BookForm = () => {
 
       if (!res.data && !res.data.title && !res.data.author) return;
 
-      dispatch(addBook(createBookWithId(res.data)));
+      dispatch(addBook(createBookWithId(res.data, "api")));
     } catch (err) {
       console.log("Error fetching random book", err);
     }
