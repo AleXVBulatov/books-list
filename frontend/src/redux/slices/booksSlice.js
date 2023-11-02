@@ -30,6 +30,15 @@ const booksSlice = createSlice({
       state.forEach((book) => (book.id === action.payload ? (book.isFavourite = !book.isFavourite) : book));
     },
   },
+  // вариант 1:
+  extraReducers: {
+    [fetchBook.fulfilled]: (state, action) => {
+      if (action.payload.title && action.payload.author) {
+        state.push(createBookWithId(action.payload, "api"));
+      }
+    },
+  },
+  // вариант 2:
   extraReducers: (builder) => {
     builder.addCase(fetchBook.fulfilled, (state, action) => {
       if (action.payload.title && action.payload.author) {
