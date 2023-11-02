@@ -31,13 +31,13 @@ const booksSlice = createSlice({
     },
   },
   // вариант 1:
-  extraReducers: {
-    [fetchBook.fulfilled]: (state, action) => {
-      if (action.payload.title && action.payload.author) {
-        state.push(createBookWithId(action.payload, "api"));
-      }
-    },
-  },
+  // extraReducers: {
+  //   [fetchBook.fulfilled]: (state, action) => {
+  //     if (action.payload.title && action.payload.author) {
+  //       state.push(createBookWithId(action.payload, "api"));
+  //     }
+  //   },
+  // },
   // вариант 2:
   extraReducers: (builder) => {
     builder.addCase(fetchBook.fulfilled, (state, action) => {
