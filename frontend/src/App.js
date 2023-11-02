@@ -1,6 +1,7 @@
 import BookForm from "./components/BookForm/BookForm.js";
 import BookList from "./components/BookList/BookList.js";
 import Filter from "./components/Filter/Filter.js";
+import Error from "./components/Error/Error.js";
 
 import "./App.scss";
 
@@ -19,6 +20,7 @@ function App() {
           <BookList />
         </div>
       </main>
+      <Error />
     </div>
   );
 }
