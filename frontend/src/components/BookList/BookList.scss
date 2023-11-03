@@ -8,7 +8,6 @@
   li {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: auto;
     padding: 10px 20px;
     border-bottom: 1px solid #ccc;
@@ -35,28 +34,48 @@
         background-color: #fdd;
       }
     }
+
+    .highlight {
+      background-color: #ff0;
+    }
+
+    .book-info {
+      flex: 1;
+      text-align: left;
+    }
+
+    .book-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .star-icon {
+      width: 24px;
+      height: 24px;
+      margin: 0 20px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      color: #fca510;
+    }
   }
 
-  .highlight {
-    background-color: #ff0;
-  }
+  @media (max-width: 490px) {
+    li {
+      flex-direction: column;
+      // justify-content: center;
 
-  .book-info {
-    flex: 1;
-    text-align: left;
-  }
+      .book-info {
+        margin-bottom: 20px;
+        text-align: left;
+      }
 
-  .book-actions {
-    display: flex;
-    align-items: center;
-  }
+      .book-actions {
+        justify-content: space-between;
 
-  .star-icon {
-    width: 24px;
-    height: 24px;
-    margin: 0 20px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    color: #fca510;
+        .star-icon {
+          margin: 0 0;
+        }
+      }
+    }
   }
 }
