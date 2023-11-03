@@ -5,7 +5,7 @@ import createBookWithId from "../../utils/createBookWithId.js";
 import { setError } from "./errorSlice";
 
 const initialState = {
-  books: [],
+  books: JSON.parse(localStorage.getItem("books")) || [],
   isLoadingViaAPI: false,
 };
 
@@ -25,12 +25,16 @@ const booksSlice = createSlice({
   reducers: {
     addBook: (state, action) => {
       state.books.push(action.payload);
+      localStorage.setItem("books", JSON.stringify(state.books));
     },
     deleteBook: (state, action) => {
-      return { ...state, books: state.books.filter((book) => book.id !== action.payload) };
+      const filteredBooks = { ...state, books: state.books.filter((book) => book.id !== action.payload) };
+      localStorage.setItem("books", JSON.stringify(filteredBooks.books));
+      return filteredBooks;
     },
     toggleFavourite: (state, action) => {
       state.books.forEach((book) => (book.id === action.payload ? (book.isFavourite = !book.isFavourite) : book));
+      localStorage.setItem("books", JSON.stringify(state.books));
     },
   },
   extraReducers: (builder) => {
@@ -41,6 +45,7 @@ const booksSlice = createSlice({
       state.isLoadingViaAPI = false;
       if (action.payload.title && action.payload.author) {
         state.books.push(createBookWithId(action.payload, "api"));
+        localStorage.setItem("books", JSON.stringify(state.books));
       }
     });
     builder.addCase(fetchBook.rejected, (state, action) => {
